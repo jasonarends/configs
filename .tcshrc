@@ -1,0 +1,121 @@
+if ( ${uid} == 0 ) set root
+
+alias ll 'ls -l --color | more'
+alias la 'ls -la --color |more'
+alias ls 'ls --color'
+#set prompt='%h:%{\033[1;33m%}%n%{\033[0m%}@%{\033[32m%}%m%{\033[0m%}:%{\033[36m%}%~%{\033[0m%}%#'
+set history=2000
+set savehist=(2000 merge)
+setenv CLICOLOR YES
+#setenv LSCOLORS ExGxFxdxCxDxDxhbadExEx
+#setenv GREP_OPTIONS --color=auto
+alias grep 'grep --color=auto'
+setenv GREP_COLOR 32
+setenv PAGER 'less'
+
+setenv    LS_COLORS    'no=01;37:fi=01;37:di=01;34:ln=01;36:pi=01;32:so=01;35:do=01;35:bd=01;33:cd=01;33:ex=01;31:mi=00;37:or=00;36:'
+
+
+set color
+set filec
+set rmstar
+set dunique
+set autolist
+set ellipsis
+set dextract
+set addsuffix
+set noclobber
+set autoexpand
+set autocorrect
+set pushdsilent
+set pushdtohome
+set printexitvalue
+
+set savedirs = 50
+set killring    = 50
+set killdup     = all
+
+set correct     = all
+set listjobs    = long
+set echo_style  = both
+set symlinks    = chase
+set inputmode   = insert
+set matchbeep   = ambiguous
+set promptchars = '>#'
+set listflags   = 'A'
+
+set watch       = (0 any any)
+set who         = "%n(`whoami`) has %a %l from %M"
+
+unset {histfile,dirsfile,autologout,implicitcd,notify,tperiod}
+
+##############################
+# ##### PROMPT SECTION ##### #
+##############################
+
+# set color_name = '%{^[[ color_code m%}'
+
+set rgb_restore   = '%{^[[00m%}'
+set rgb_black     = '%{^[[00;30m%}'
+set rgb_firebrick = '%{^[[00;31m%}'
+set rgb_red       = '%{^[[01;31m%}'
+set rgb_forest    = '%{^[[00;32m%}'
+set rgb_green     = '%{^[[01;32m%}'
+set rgb_brown     = '%{^[[00;33m%}'
+set rgb_yellow    = '%{^[[01;33m%}'
+set rgb_navy      = '%{^[[00;34m%}'
+set rgb_blue      = '%{^[[01;34m%}'
+set rgb_purple    = '%{^[[00;35m%}'
+set rgb_magenta   = '%{^[[01;35m%}'
+set rgb_cadet     = '%{^[[00;36m%}'
+set rgb_cyan      = '%{^[[01;36m%}'
+set rgb_gray      = '%{^[[00;37m%}'
+set rgb_white     = '%{^[[01;37m%}'
+
+set rgb_std       = "${rgb_white}"
+
+if ( ${?root} ) then
+    set rgb_usr = "${rgb_red}"
+else
+    set rgb_usr = "${rgb_green}"
+endif
+
+if ( `hostname` =~ *-pi-* ) then
+    set rgb_host = "${rgb_purple}"
+else
+    set rgb_host = "${rgb_forest}"
+endif
+
+if ( ${?prompt} ) set prompt="${rgb_usr}`whoami`${rgb_std}@${rgb_host}%m:${rgb_cyan}%c${rgb_usr}%#${rgb_restore} "
+
+unset rgb_*
+
+#############################################
+# ##### SOURCE/LOAD - DIRECTORY STACK ##### #
+#############################################
+
+#set usr_cwd = "`pwd`" # most WMs open terminals in specific locations therefore note the current working directory
+#dsl                   # source/load the directory stack, if present ... this usually changes the current working directory
+#cd "${usr_cwd}"       # 'cd' back to the initial/original working directory and push it onto the directory stack
+#unset usr_cwd         # cleanup
+
+#######################
+# ##### THE END ##### #
+#######################
+
+if ( ${?root} ) unset root
+
+if ! $?PATH setenv PATH '';
+if "${PATH}" != '' setenv PATH "/home/jason/perl5/bin:${PATH}";
+if "${PATH}" == '' setenv PATH "/home/jason/perl5/bin";
+if ! $?PERL5LIB setenv PERL5LIB '';
+if "${PERL5LIB}" != '' setenv PERL5LIB "/home/jason/perl5/lib/perl5:${PERL5LIB}";
+if "${PERL5LIB}" == '' setenv PERL5LIB "/home/jason/perl5/lib/perl5";
+if ! $?PERL_LOCAL_LIB_ROOT setenv PERL_LOCAL_LIB_ROOT '';
+if "${PERL_LOCAL_LIB_ROOT}" != '' setenv PERL_LOCAL_LIB_ROOT "/home/jason/perl5:${PERL_LOCAL_LIB_ROOT}";
+if "${PERL_LOCAL_LIB_ROOT}" == '' setenv PERL_LOCAL_LIB_ROOT "/home/jason/perl5";
+if ! $?PERL_MB_OPT setenv PERL_MB_OPT '';
+setenv PERL_MB_OPT "--install_base "\""/home/jason/perl5"\""";
+if ! $?PERL_MM_OPT setenv PERL_MM_OPT '';
+setenv PERL_MM_OPT "INSTALL_BASE=/home/jason/perl5";
+eval `/home/jason/.linuxbrew/bin/brew shellenv`

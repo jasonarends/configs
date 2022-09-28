@@ -1,0 +1,51 @@
+set backspace=indent,eol,start
+set wrap
+set bri
+set whichwrap=b,s,<,>,[,]
+set nu
+set listchars=tab:>-,trail:-
+set title
+set smd
+set ru
+syntax enable
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+set showmatch
+set mat=2
+"set smarttab
+set ai
+set si
+set mouse=a
+set scrolloff=5
+
+
+set expandtab
+set shiftwidth=4
+set softtabstop=4
+
+filetype plugin indent on
+
+"if has ('gui_running')
+    set background=light
+"else
+"    set background=dark
+"endif
+
+colorscheme solarized
+
+autocmd BufReadPost *
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \       exe "normal! g`\"" |
+        \ endif
+set viminfo^=%
+
+func! DeleteTrailingWS()
+        exe "normal mz"
+        %s/\s\+$//ge
+        exe "normal `z"
+endfunc
+autocmd BufWrite *.py :call DeleteTrailingWS()
+autocmd BufWrite *.coffee :call DeleteTrailingWS()
+
