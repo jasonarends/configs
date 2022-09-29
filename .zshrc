@@ -24,3 +24,5 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 alias ls='ls -lh --color=auto --group-directories-first'
 alias la='ls -lAh --color=auto --group-directories-first'
 alias grep='grep --color=auto'
+neofetch
+curl 'wttr.in/?0q'
