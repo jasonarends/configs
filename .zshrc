@@ -21,8 +21,8 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-alias ls='ls -lh --color=auto --group-directories-first'
+alias ll='ls -lh --color=auto --group-directories-first'
 alias la='ls -lAh --color=auto --group-directories-first'
 alias grep='grep --color=auto'
-neofetch
+neofetch --config ~/configs/neofetch/config.conf
 curl 'wttr.in/?0q'
