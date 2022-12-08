@@ -1,5 +1,5 @@
 neofetch --config ~/configs/neofetch/config.conf
-curl -sf 'wttr.in/?0q'
+#curl -sf 'wttr.in/?0q'
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -28,3 +28,8 @@ alias ls='ls --color=auto'
 alias ll='ls -lh --color=auto --group-directories-first'
 alias la='ls -lAh --color=auto --group-directories-first'
 alias grep='grep --color=auto'
+
+PATH=~/.local/bin:$PATH
+export PAGER='most'
+# To customize prompt, run `p10k configure` or edit ~/configs/.p10k.zsh.
+[[ ! -f ~/configs/.p10k.zsh ]] || source ~/configs/.p10k.zsh
