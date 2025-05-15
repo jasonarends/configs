@@ -1,11 +1,23 @@
-neofetch --config ~/configs/neofetch/config.conf
-#curl -sf 'wttr.in/?0q'
+[[ -t 1 ]] && clear > /dev/null
+
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# After the prompt is fully ready, run these:
+autoload -Uz add-zsh-hook
+
+# Auto-attach to tmux *only once per SSH login shell*
+if [[ -t 1 && -z "$TMUX"  ]]; then
+  if tmux has-session -t main 2>/dev/null; then
+    tmux attach -t main
+  else
+    tmux new-session -s main
+  fi
 fi
 
 # Lines configured by zsh-newuser-install
@@ -30,22 +42,11 @@ alias la='ls -lAh --color=auto --group-directories-first'
 alias grep='grep --color=auto'
 
 # PATH=~/.local/bin:$PATH
+
 export PAGER='most'
+
+unset CONDA_DEFAULT_ENV
 # To customize prompt, run `p10k configure` or edit ~/configs/.p10k.zsh.
 [[ ! -f ~/configs/.p10k.zsh ]] || source ~/configs/.p10k.zsh
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/conda/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/opt/conda/etc/profile.d/conda.sh" ]; then
-        . "/opt/conda/etc/profile.d/conda.sh"
-    else
-        export PATH="/opt/conda/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
+fpath+=${ZDOTDIR:-~}/.zsh_functions
